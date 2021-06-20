@@ -1,11 +1,13 @@
-const path = require('path');
+// const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/app.js',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
+    path: `${__dirname}/dist`,
+    clean: true,
   },
   devServer: {
     contentBase: './src',
@@ -15,6 +17,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: './src/json', to: './json' }],
+    }),
   ],
   module: {
     rules: [
@@ -23,5 +28,9 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.json', '.jsx', '.css'],
   },
 };
