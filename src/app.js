@@ -4,16 +4,18 @@ import initClass from './classFilter';
 import initQuiz from './quizFilter';
 
 import './app.css';
+import './json/class.json';
+import './json/quiz.json';
 
 let classes;
 let quizzes;
 
-getAPI('./class.json').then((res) => {
+getAPI('./json/class.json').then((res) => {
   classes = res;
   initClass(classes);
 });
 
-getAPI('./quiz.json').then((res) => {
+getAPI('./json/quiz.json').then((res) => {
   quizzes = res;
   initQuiz(quizzes);
 });
